@@ -23,8 +23,18 @@ def naked_twins(values):
     Returns:
         the values dictionary with the naked twins eliminated from peers.
     """
-
     # Find all instances of naked twins
+    for unit in unitlist:
+        for box in unit:
+            twin_set = []
+            if len(values[box]) == 2:
+                for i in range(unit.index(box),len(unit),1):
+                    index = unit[i]
+                    if values[box] == values[index]:
+                        twin_set.insert(0,[box,values[unit[i]]])
+        
+
+    
     # Eliminate the naked twins as possibilities for their peers
 	
 def cross(A, B):
