@@ -24,18 +24,29 @@ def naked_twins(values):
         the values dictionary with the naked twins eliminated from peers.
     """
     # Find all instances of naked twins
+    twin_pair_list= []
     for unit in unitlist:
         for box in unit:
-            twin_set = []
             if len(values[box]) == 2:
-                for i in range(unit.index(box),len(unit),1):
+                for i in range(unit.index(box)+1,len(unit),1):
                     index = unit[i]
                     if values[box] == values[index]:
-                        twin_set.insert(0,[box,values[unit[i]]])
-        
+                        twin_pair_list.insert(0,(box,index))
+    #deduplicate
+    twin_pair_set = set(twin_pair_list)
 
+    if (len(twin_pair_set) == 0):   
+        return values
     
+
     # Eliminate the naked twins as possibilities for their peers
+    for x,y in twin_pair_set:
+        replace_candidate_boxes = peers[x] & peers[y]
+        for box in replace_candidate_boxes:
+            value = values[box].replace(values[x][0],'').replace(values[x][1],'')
+            values = assign_value(values, box , value)
+    
+    return values
 	
 def cross(A, B):
     "Cross product of elements in A and elements in B."
@@ -49,7 +60,8 @@ boxes = cross(rows, cols)
 row_units = [cross(r, cols) for r in rows]
 column_units = [cross(rows, c) for c in cols]
 square_units = [cross(rs, cs) for rs in ('ABC','DEF','GHI') for cs in ('123','456','789')]
-unitlist = row_units + column_units + square_units
+diag_units = [[rows[i] + cols[i] for i in range(9)], [rows[::-1][i] + cols[i] for i in range(9)]]
+unitlist = row_units + column_units + square_units + diag_units
 units = dict((s, [u for u in unitlist if s in u]) for s in boxes)
 peers = dict((s, set(sum(units[s],[]))-set([s])) for s in boxes)
 	
@@ -125,6 +137,7 @@ def reduce_puzzle(values):
     stalled = False
     while not stalled:
         solved_values_before = len([box for box in values.keys() if len(values[box]) == 1])
+        values = naked_twins(values)
         values = eliminate(values)
         values = only_choice(values)
         solved_values_after = len([box for box in values.keys() if len(values[box]) == 1])
