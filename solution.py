@@ -40,18 +40,21 @@ def naked_twins(values):
     
 
     # Eliminate the naked twins as possibilities for their peers
+    
     for x,y in twin_pair_set:
-        replace_candidate_boxes = peers[x] & peers[y]
-        for box in replace_candidate_boxes:
+        replace_candidate_boxes = peers[x] & peers[y]        
+        for box in replace_candidate_boxes: 
+            if len(values[x]) or len(values[y]) == 0:
+                return values
             value = values[box].replace(values[x][0],'').replace(values[x][1],'')
             values = assign_value(values, box , value)
-    
+
     return values
 	
 def cross(A, B):
     "Cross product of elements in A and elements in B."
     return [s+t for s in A for t in B]
-	
+
 rows = 'ABCDEFGHI'
 cols = '123456789'
 boxes = cross(rows, cols)
@@ -112,7 +115,7 @@ def eliminate(values):
     for box in solved_values:
         digit = values[box]
         for peer in peers[box]:
-            values[peer] = values[peer].replace(digit,'')
+            values = assign_value(values, peer, values[peer].replace(digit, ''))
     return values
 
 def only_choice(values):
@@ -125,7 +128,7 @@ def only_choice(values):
         for digit in '123456789':
             dplaces = [box for box in unit if digit in values[box]]
             if len(dplaces) == 1:
-                values[dplaces[0]] = digit
+                values = assign_value(values, dplaces[0], digit)
     return values
 
 def reduce_puzzle(values):
@@ -161,10 +164,9 @@ def search(values):
     n,s = min((len(values[s]), s) for s in boxes if len(values[s]) > 1)
     # Now use recurrence to solve each one of the resulting sudokus, and 
     for value in values[s]:
-        #new_sudoku = values.copy()
-		#new_sudoku[s] = value
-        values = assign_value(values,s,value)
-        attempt = search(values)
+        new_sudoku = values.copy()
+        new_sudoku[s] = value
+        attempt = search(new_sudoku)
         if attempt:
             return attempt
 
@@ -173,7 +175,7 @@ def solve(grid):
     Find the solution to a Sudoku grid.
     Args:
         grid(string): a string representing a sudoku grid.
-            Example: '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
+            Example: '9.1....8.8.5.7..4.2.4....6...7......5..............83.3..6......9................'
     Returns:
         The dictionary representation of the final sudoku grid. False if no solution exists.
     """
@@ -182,7 +184,7 @@ def solve(grid):
 	
 
 if __name__ == '__main__':
-    diag_sudoku_grid = '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
+    diag_sudoku_grid = '9.1....8.8.5.7..4.2.4....6...7......5..............83.3..6......9................'
     display(solve(diag_sudoku_grid))
 
     try:
