@@ -24,10 +24,13 @@ def naked_twins(values):
         the values dictionary with the naked twins eliminated from peers.
     """
     # Find all instances of naked twins
+
+#Find all instances of naked twins
     twin_pair_list= []
     for unit in unitlist:
+        value_list = [ values[box] for box in unit ] 
         for box in unit:
-            if len(values[box]) == 2:
+            if len(values[box]) == 2 and value_list.count(values[box]) == 2 :
                 for i in range(unit.index(box)+1,len(unit),1):
                     index = unit[i]
                     if values[box] == values[index]:
@@ -42,9 +45,9 @@ def naked_twins(values):
     # Eliminate the naked twins as possibilities for their peers
     
     for x,y in twin_pair_set:
-        replace_candidate_boxes = peers[x] & peers[y]        
+        replace_candidate_boxes = peers[x] & peers[y]   
         for box in replace_candidate_boxes: 
-            if len(values[x]) or len(values[y]) == 0:
+            if any ( box in t for t in twin_pair_set ):
                 return values
             value = values[box].replace(values[x][0],'').replace(values[x][1],'')
             values = assign_value(values, box , value)

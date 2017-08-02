@@ -16,27 +16,8 @@ units = dict((s, [u for u in unitlist if s in u]) for s in boxes)
 peers = dict((s, set(sum(units[s],[]))-set([s])) for s in boxes)
 
 
-naked_twins_test_1 = {'A1': '23', 'A2': '4', 'A3': '7', 'A4': '6', 'A5': '8', 'A6': '5', 'A7': '23', 'A8': '9',
-                            'A9': '1', 'B1': '6', 'B2': '9', 'B3': '8', 'B4': '4', 'B5': '37', 'B6': '1', 'B7': '237',
-                            'B8': '5', 'B9': '237', 'C1': '23', 'C2': '5', 'C3': '1', 'C4': '23', 'C5': '379',
-                            'C6': '2379', 'C7': '8', 'C8': '6', 'C9': '4', 'D1': '8', 'D2': '17', 'D3': '9',
-                            'D4': '1235', 'D5': '6', 'D6': '237', 'D7': '4', 'D8': '27', 'D9': '2357', 'E1': '5',
-                            'E2': '6', 'E3': '2', 'E4': '8', 'E5': '347', 'E6': '347', 'E7': '37', 'E8': '1', 'E9': '9',
-                            'F1': '4', 'F2': '17', 'F3': '3', 'F4': '125', 'F5': '579', 'F6': '279', 'F7': '6',
-                            'F8': '8', 'F9': '257', 'G1': '1', 'G2': '8', 'G3': '6', 'G4': '35', 'G5': '345',
-                            'G6': '34', 'G7': '9', 'G8': '27', 'G9': '27', 'H1': '7', 'H2': '2', 'H3': '4', 'H4': '9',
-                            'H5': '1', 'H6': '8', 'H7': '5', 'H8': '3', 'H9': '6', 'I1': '9', 'I2': '3', 'I3': '5',
-                            'I4': '7', 'I5': '2', 'I6': '6', 'I7': '1', 'I8': '4', 'I9': '8'}
+naked_twins_test_1 = {"G7": "1234568", "G6": "9", "G5": "35678", "G4": "23678", "G3": "245678", "G2": "123568", "G1": "1234678", "G9": "12345678", "G8": "1234567", "C9": "13456", "C8": "13456", "C3": "4678", "C2": "68", "C1": "4678", "C7": "13456", "C6": "368", "C5": "2", "A4": "5", "A9": "2346", "A8": "2346", "F1": "123689", "F2": "7", "F3": "25689", "F4": "23468", "F5": "1345689", "F6": "23568", "F7": "1234568", "F8": "1234569", "F9": "1234568", "B4": "46", "B5": "46", "B6": "1", "B7": "7", "E9": "12345678", "B1": "5", "B2": "2", "B3": "3", "C4": "9", "B8": "8", "B9": "9", "I9": "1235678", "I8": "123567", "I1": "123678", "I3": "25678", "I2": "123568", "I5": "35678", "I4": "23678", "I7": "9", "I6": "4", "A1": "2468", "A3": "1", "A2": "9", "A5": "3468", "E8": "12345679", "A7": "2346", "A6": "7", "E5": "13456789", "E4": "234678", "E7": "1234568", "E6": "23568", "E1": "123689", "E3": "25689", "E2": "123568", "H8": "234567", "H9": "2345678", "H2": "23568", "H3": "2456789", "H1": "2346789", "H6": "23568", "H7": "234568", "H4": "1", "H5": "35678", "D8": "1235679", "D9": "1235678", "D6": "23568", "D7": "123568", "D4": "23678", "D5": "1356789", "D2": "4", "D3": "25689", "D1": "123689"}
 
-possible_solutions_1 = {'A1': '23', 'A2': '4', 'A3': '7', 'A4': '6', 'A5': '8', 'A6': '5', 'A7': '23', 'A8': '9', 'A9': '1', 'B1': '6',
-         'B2': '9', 'B3': '8', 'B4': '4', 'B5': '37', 'B6': '1', 'B7': '237', 'B8': '5', 'B9': '237', 'C1': '23',
-         'C2': '5', 'C3': '1', 'C4': '23', 'C5': '79', 'C6': '79', 'C7': '8', 'C8': '6', 'C9': '4', 'D1': '8',
-         'D2': '17', 'D3': '9', 'D4': '1235', 'D5': '6', 'D6': '237', 'D7': '4', 'D8': '27', 'D9': '2357', 'E1': '5',
-         'E2': '6', 'E3': '2', 'E4': '8', 'E5': '347', 'E6': '347', 'E7': '37', 'E8': '1', 'E9': '9', 'F1': '4',
-         'F2': '17', 'F3': '3', 'F4': '125', 'F5': '579', 'F6': '279', 'F7': '6', 'F8': '8', 'F9': '257', 'G1': '1',
-         'G2': '8', 'G3': '6', 'G4': '35', 'G5': '345', 'G6': '34', 'G7': '9', 'G8': '27', 'G9': '27', 'H1': '7',
-         'H2': '2', 'H3': '4', 'H4': '9', 'H5': '1', 'H6': '8', 'H7': '5', 'H8': '3', 'H9': '6', 'I1': '9', 'I2': '3',
-         'I3': '5', 'I4': '7', 'I5': '2', 'I6': '6', 'I7': '1', 'I8': '4', 'I9': '8'}
 
 assignments = []
 
@@ -64,10 +45,13 @@ def naked_twins(values):
         the values dictionary with the naked twins eliminated from peers.
     """
     # Find all instances of naked twins
+
+#Find all instances of naked twins
     twin_pair_list= []
     for unit in unitlist:
+        value_list = [ values[box] for box in unit ] 
         for box in unit:
-            if len(values[box]) == 2:
+            if len(values[box]) == 2 and value_list.count(values[box]) == 2 :
                 for i in range(unit.index(box)+1,len(unit),1):
                     index = unit[i]
                     if values[box] == values[index]:
@@ -80,12 +64,15 @@ def naked_twins(values):
     
 
     # Eliminate the naked twins as possibilities for their peers
+    
     for x,y in twin_pair_set:
-        replace_candidate_boxes = peers[x] & peers[y]
-        for box in replace_candidate_boxes:
+        replace_candidate_boxes = peers[x] & peers[y]   
+        for box in replace_candidate_boxes: 
+            if any ( box in t for t in twin_pair_set ):
+                return values
             value = values[box].replace(values[x][0],'').replace(values[x][1],'')
             values = assign_value(values, box , value)
-    
+
     return values
 
 def grid_values(grid):
@@ -135,8 +122,6 @@ def solve(grid):
 	
 if __name__ == '__main__':
     
-    display(naked_twins_test_1)
-    print ('\n')
-    display(solve(naked_twins_test_1))
-    print ('\n')
-    display(possible_solutions_1)
+   display(naked_twins_test_1)
+   print ('\n')
+   display(solve(naked_twins_test_1))
